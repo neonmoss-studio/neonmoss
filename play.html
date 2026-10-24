@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@700;800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body class="play-page">
 <div class="grid-bg" aria-hidden="true"></div>
@@ -61,9 +61,24 @@
 
   <p class="play-desc" id="gDesc"></p>
 
+  <section class="about-game" id="aboutBox" hidden>
+    <p class="ag-tag" id="agTag"></p>
+    <p class="ag-intro" id="agIntro"></p>
+    <div id="agRows"></div>
+    <div class="ag-feat" id="agFeatBox">
+      <h2 id="agFeatTitle"></h2>
+      <ul id="agFeat"></ul>
+    </div>
+  </section>
+
   <section class="shots" id="shotsBox" hidden>
     <h2 id="shotsTitle">Screenshots</h2>
     <div class="shots-grid" id="shotsGrid"></div>
+  </section>
+
+  <section class="press" id="pressBox" hidden>
+    <h2 id="pressTitle"></h2>
+    <p id="pressText"></p>
   </section>
 </main>
 
@@ -79,7 +94,7 @@
   <a href="./">neonmoss</a>
 </footer>
 
-<script src="js/games.js?v=6"></script>
+<script src="js/games.js?v=7"></script>
 <script>
 (function () {
   "use strict";
@@ -87,11 +102,13 @@
     pl: { back: "← Gry", play: "Zagraj w demo", fs: "Pełny ekran", note: "Ok. 120 MB do pobrania. Dźwięk startuje po kliknięciu.", missing: "Nie ma takiej gry.",
           dlT: "Chcesz pełną jakość?", dlI: "Wersja w przeglądarce ma słabszą grafikę i dźwięk i może lekko przycinać. Pobierz wersję na Windows: jeden plik .exe, bez instalacji. Rozpakuj i graj.",
           dlS: "Windows może pokazać ostrzeżenie SmartScreen, bo gra nie ma podpisu. Kliknij „Więcej informacji”, potem „Uruchom mimo to”.",
-          dlB: "Pobierz na Windows", dlSoon: "Wersja na Windows wkrótce", dlC: "pobrań", shots: "Zrzuty ekranu" },
+          dlB: "Pobierz na Windows", dlSoon: "Wersja na Windows wkrótce", dlC: "pobrań", shots: "Zrzuty ekranu", feat: "Co znajdziesz w grze",
+          pressT: "Streamer albo prasa?", pressX: "Chcesz pokazać grę na kanale albo napisać o niej? Napisz do nas: " },
     en: { back: "← Games", play: "Play demo", fs: "Fullscreen", note: "About 120 MB to download. Sound starts after you click.", missing: "Game not found.",
           dlT: "Want full quality?", dlI: "The browser version has lower quality graphics and sound and may stutter a bit. Get the Windows version: a single .exe, no install. Unzip and play.",
           dlS: "Windows may show a SmartScreen warning because the game is not signed. Click “More info”, then “Run anyway”.",
-          dlB: "Download for Windows", dlSoon: "Windows version coming soon", dlC: "downloads", shots: "Screenshots" }
+          dlB: "Download for Windows", dlSoon: "Windows version coming soon", dlC: "downloads", shots: "Screenshots", feat: "Features",
+          pressT: "Streamer or press?", pressX: "Want to cover the game on your channel or website? Write to us: " }
   };
   var lang;
   try { lang = localStorage.getItem("nm_lang"); } catch (e) {}
@@ -153,6 +170,7 @@
       lb.hidden = false; document.body.style.overflow = "hidden";
     };
     var hide = function () { lb.hidden = true; document.body.style.overflow = ""; };
+    window.NM_showShot = show;
     shots.forEach(function (sh, i) {
       var b = document.createElement("button");
       b.type = "button"; b.className = "shot";
@@ -172,6 +190,50 @@
       else if (e.key === "ArrowLeft") show(cur - 1);
       else if (e.key === "ArrowRight") show(cur + 1);
     });
+  }
+
+  // opis gry (g.about) z sekcjami i zrzutami obok
+  var ab = g.about && (g.about[lang] || g.about.en || g.about.pl);
+  if (ab) {
+    document.getElementById("aboutBox").hidden = false;
+    document.getElementById("agTag").textContent = ab.tagline || "";
+    document.getElementById("agIntro").textContent = ab.intro || "";
+    var rows = document.getElementById("agRows");
+    (ab.sections || []).forEach(function (sec, i) {
+      var row = document.createElement("article");
+      row.className = "ag-row" + (i % 2 ? " flip" : "");
+      var txt = document.createElement("div"); txt.className = "ag-txt";
+      var h = document.createElement("h2"); h.textContent = sec.title; txt.appendChild(h);
+      if (sec.text) { var pp = document.createElement("p"); pp.textContent = sec.text; txt.appendChild(pp); }
+      if (sec.bullets) {
+        var ul = document.createElement("ul");
+        sec.bullets.forEach(function (b) { var li = document.createElement("li"); li.textContent = b; ul.appendChild(li); });
+        txt.appendChild(ul);
+      }
+      row.appendChild(txt);
+      var idx = (sec.shot || 0) - 1;
+      if (g.shots && g.shots[idx]) {
+        var fig = document.createElement("button"); fig.type = "button"; fig.className = "ag-img";
+        var im = document.createElement("img");
+        im.src = "assets/games/" + g.slug + "/shots/" + g.shots[idx] + ".webp"; im.alt = sec.title; im.loading = "lazy";
+        fig.appendChild(im);
+        fig.addEventListener("click", function () { if (window.NM_showShot) window.NM_showShot(idx); });
+        row.appendChild(fig);
+      }
+      rows.appendChild(row);
+    });
+    var fl = document.getElementById("agFeat");
+    document.getElementById("agFeatTitle").textContent = t.feat;
+    (ab.features || []).forEach(function (f) { var li = document.createElement("li"); li.textContent = f; fl.appendChild(li); });
+    if (!(ab.features || []).length) document.getElementById("agFeatBox").remove();
+  }
+  var mail = (window.NM_SITE || {}).email;
+  if (mail) {
+    document.getElementById("pressBox").hidden = false;
+    document.getElementById("pressTitle").textContent = t.pressT;
+    var pt = document.getElementById("pressText");
+    pt.textContent = t.pressX;
+    var ma = document.createElement("a"); ma.href = "mailto:" + mail; ma.textContent = mail; pt.appendChild(ma);
   }
 
   var start = document.getElementById("start");
