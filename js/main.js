@@ -20,7 +20,7 @@
       contact_none: "Linki pojawią się wkrótce.", link_soon: "wkrótce",
       to_top: "Do góry",
       st_demo: "Demo", st_soon: "Wkrótce", st_released: "Wydana",
-      play: "Zagraj w demo", download: "Pobierz", itch: "itch.io", soon_btn: "Demo wkrótce",
+      play: "Zagraj w demo", download: "Pobierz", itch: "itch.io", soon_btn: "Demo wkrótce", win_dl: "Pobierz na Windows",
       slot_t: "Coś się warzy...", slot_d: "Kolejny prototyp nabiera kształtu. Obserwuj nas albo zajrzyj wkrótce, żeby zagrać w następny eksperyment.",
       lang_aria: "Zmień język"
     },
@@ -40,7 +40,7 @@
       contact_none: "Links coming soon.", link_soon: "soon",
       to_top: "Back to top",
       st_demo: "Demo", st_soon: "Soon", st_released: "Released",
-      play: "Play demo", download: "Download", itch: "itch.io", soon_btn: "Demo soon",
+      play: "Play demo", download: "Download", itch: "itch.io", soon_btn: "Demo soon", win_dl: "Download for Windows",
       slot_t: "Something is brewing...", slot_d: "The next prototype is taking shape. Follow us or check back soon to play the next experiment.",
       lang_aria: "Change language"
     }
@@ -112,6 +112,14 @@
       if (g.download) act.appendChild(link(g.download, "btn btn-ghost btn-sm", t("download"), true));
       if (g.itch) act.appendChild(link(g.itch, "btn btn-ghost btn-sm", t("itch"), true));
       if (!g.play && !g.download && !g.itch) act.appendChild(el("span", "btn btn-off btn-sm", t("soon_btn")));
+      if (g.release && window.NM_release) {
+        (function (box) {
+          window.NM_release(g, function (r) {
+            if (!r) return;
+            box.appendChild(link(r.url, "btn btn-ghost btn-sm", t("win_dl"), false));
+          });
+        })(act);
+      }
       body.appendChild(act);
 
       card.appendChild(body);

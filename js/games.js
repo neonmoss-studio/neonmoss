@@ -20,6 +20,7 @@
 //   play      link do wersji w przegladarce albo null
 //   download  link do pobrania (np. itch.io) albo null
 //   itch      link do strony na itch.io albo null
+//   release   { repo, asset } plik z GitHub Releases (wersja do pobrania + licznik)
 //   engine    np. "Godot 4"
 //   controls  lista klawiszy pod oknem gry (opcjonalnie)
 //
@@ -65,7 +66,33 @@ window.NM_GAMES = [
       { k: "M", pl: "mapa", en: "map" },
       { k: "Esc", pl: "pauza", en: "pause" }
     ],
+    // Wersja na Windows z GitHub Releases. Link zawsze do najnowszego release,
+    // licznik pobran z API GitHuba. Dopoki release nie istnieje, przycisk jest wyszarzony.
+    release: { repo: "neonmoss-studio/neonmoss", asset: "LivLoveLoot-Windows.zip" },
     download: null,
     itch: null
   }
 ];
+
+// Wspolne: sprawdza release na GitHubie i zwraca { url, count } albo null.
+window.NM_release = function (g, cb) {
+  var r = g && g.release;
+  if (!r || !window.fetch) { cb(null); return; }
+  var key = "nm_rel_" + r.repo + "_" + r.asset, now = Date.now();
+  try {
+    var c = JSON.parse(sessionStorage.getItem(key) || "null");
+    if (c && now - c.t < 10 * 60 * 1000) { cb(c.v); return; }
+  } catch (e) {}
+  fetch("https://api.github.com/repos/" + r.repo + "/releases?per_page=100")
+    .then(function (res) { return res.ok ? res.json() : []; })
+    .then(function (list) {
+      var count = 0, found = false;
+      (list || []).forEach(function (rel) {
+        (rel.assets || []).forEach(function (a) { if (a.name === r.asset) { found = true; count += a.download_count || 0; } });
+      });
+      var v = found ? { url: "https://github.com/" + r.repo + "/releases/latest/download/" + r.asset, count: count } : null;
+      try { sessionStorage.setItem(key, JSON.stringify({ t: now, v: v })); } catch (e) {}
+      cb(v);
+    })
+    .catch(function () { cb(null); });
+};

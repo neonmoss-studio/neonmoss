@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@700;800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body class="play-page">
 <div class="grid-bg" aria-hidden="true"></div>
@@ -46,6 +46,19 @@
     <button class="btn btn-ghost btn-sm" id="fsBtn" type="button">Fullscreen</button>
   </div>
 
+  <section class="dl-box" id="dlBox" hidden>
+    <div class="dl-text">
+      <b id="dlTitle"></b>
+      <p id="dlInfo"></p>
+      <p class="dl-small" id="dlSmall"></p>
+    </div>
+    <div class="dl-act">
+      <a class="btn btn-lime" id="dlBtn" hidden></a>
+      <span class="btn btn-off" id="dlSoon"></span>
+      <span class="dl-count" id="dlCount" hidden></span>
+    </div>
+  </section>
+
   <p class="play-desc" id="gDesc"></p>
 </main>
 
@@ -54,13 +67,19 @@
   <a href="./">neonmoss</a>
 </footer>
 
-<script src="js/games.js?v=3"></script>
+<script src="js/games.js?v=4"></script>
 <script>
 (function () {
   "use strict";
   var T = {
-    pl: { back: "← Gry", play: "Zagraj w demo", fs: "Pełny ekran", note: "Ok. 120 MB do pobrania. Dźwięk startuje po kliknięciu.", missing: "Nie ma takiej gry." },
-    en: { back: "← Games", play: "Play demo", fs: "Fullscreen", note: "About 120 MB to download. Sound starts after you click.", missing: "Game not found." }
+    pl: { back: "← Gry", play: "Zagraj w demo", fs: "Pełny ekran", note: "Ok. 120 MB do pobrania. Dźwięk startuje po kliknięciu.", missing: "Nie ma takiej gry.",
+          dlT: "Chcesz pełną jakość?", dlI: "Wersja w przeglądarce ma słabszą grafikę i dźwięk i może lekko przycinać. Pobierz wersję na Windows: jeden plik .exe, bez instalacji. Rozpakuj i graj.",
+          dlS: "Windows może pokazać ostrzeżenie SmartScreen, bo gra nie ma podpisu. Kliknij „Więcej informacji”, potem „Uruchom mimo to”.",
+          dlB: "Pobierz na Windows", dlSoon: "Wersja na Windows wkrótce", dlC: "pobrań" },
+    en: { back: "← Games", play: "Play demo", fs: "Fullscreen", note: "About 120 MB to download. Sound starts after you click.", missing: "Game not found.",
+          dlT: "Want full quality?", dlI: "The browser version has lower quality graphics and sound and may stutter a bit. Get the Windows version: a single .exe, no install. Unzip and play.",
+          dlS: "Windows may show a SmartScreen warning because the game is not signed. Click “More info”, then “Run anyway”.",
+          dlB: "Download for Windows", dlSoon: "Windows version coming soon", dlC: "downloads" }
   };
   var lang;
   try { lang = localStorage.getItem("nm_lang"); } catch (e) {}
@@ -90,6 +109,23 @@
     var s = document.createElement("span"); s.textContent = c[lang] || c.en || "";
     li.appendChild(k); li.appendChild(s); keys.appendChild(li);
   });
+
+  if (g.release) {
+    document.getElementById("dlBox").hidden = false;
+    document.getElementById("dlTitle").textContent = t.dlT;
+    document.getElementById("dlInfo").textContent = t.dlI;
+    document.getElementById("dlSmall").textContent = t.dlS;
+    var soon = document.getElementById("dlSoon");
+    soon.textContent = t.dlSoon;
+    window.NM_release(g, function (r) {
+      if (!r) return;
+      var b = document.getElementById("dlBtn");
+      b.href = r.url; b.textContent = t.dlB; b.hidden = false;
+      soon.remove();
+      var c = document.getElementById("dlCount");
+      c.textContent = r.count + " " + t.dlC; c.hidden = false;
+    });
+  }
 
   var start = document.getElementById("start");
   var cover = document.getElementById("startCover");
