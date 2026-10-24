@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Moss Studio</title>
+<meta name="description" content="Small games that hit hard. Play instant browser demos, shape the final vision.">
+<meta name="theme-color" content="#0b0e12">
+<meta property="og:title" content="Neon Moss Studio">
+<meta property="og:description" content="Small games that hit hard. Play instant browser demos, shape the final vision.">
+<meta property="og:image" content="assets/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=2">
+<link rel="apple-touch-icon" href="assets/icon-180.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@700;800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="spores" aria-hidden="true"></canvas>
+<div class="grid-bg" aria-hidden="true"></div>
+
+<header class="nav" id="top">
+  <a class="nav-brand" href="#top" aria-label="Neon Moss Studio">
+    <img src="assets/logo-header.webp" alt="Neon Moss" width="591" height="144">
+  </a>
+  <nav class="nav-links">
+    <a href="#games" data-i18n="nav_games">Gry</a>
+    <a href="#about" data-i18n="nav_about">O nas</a>
+    <a href="#contact" data-i18n="nav_contact">Kontakt</a>
+    <button class="lang" id="langBtn" type="button" aria-label="Zmień język">EN</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <h1 class="sr-only">Neon Moss Studio</h1>
+    <img class="hero-logo" src="assets/logo.webp" alt="Neon Moss Studio" width="1200" height="726">
+    <p class="hero-tag" data-i18n="hero_tag">Małe gry, które mocno uderzają. Zagraj w dema w przeglądarce i współtwórz ostateczną wersję.</p>
+    <div class="hero-cta">
+      <a class="btn btn-lime" href="#games" data-i18n="hero_play">Zagraj w dema</a>
+      <a class="btn btn-ghost" href="#about" data-i18n="hero_about">Kim jesteśmy</a>
+    </div>
+  </section>
+
+  <section class="section" id="games">
+    <div class="section-head">
+      <span class="kicker">01</span>
+      <h2 data-i18n="games_title">Gry i dema</h2>
+      <p data-i18n="games_sub">Buildy do zagrania od razu. Bez instalacji, bez kombinowania.</p>
+    </div>
+    <div class="games" id="gamesGrid"></div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-head">
+      <span class="kicker">02</span>
+      <h2 data-i18n="about_title">O studiu</h2>
+    </div>
+    <div class="about">
+      <div class="about-text">
+        <p data-i18n="about_p1">Neon Moss to niezależne studio, które tworzy krótkie, zwarte gry z dużą regrywalnością. Gry, które włączasz na pięć minut, a zostajesz na godzinę.</p>
+        <p data-i18n="about_p2">Budujemy szybko, testujemy prosto w przeglądarce i słuchamy graczy. Jeśli demo chwyci, robimy z niego pełną grę.</p>
+      </div>
+      <ul class="pillars">
+        <li class="p-cyan"><b data-i18n="p1_t">Instant Play</b><span data-i18n="p1_d">Dema gotowe do gry w przeglądarce. Bez instalacji, bez kombinowania.</span></li>
+        <li class="p-magenta"><b data-i18n="p2_t">Handcrafted Design</b><span data-i18n="p2_d">Zwarta mechanika, klimatyczny dźwięk i dopracowana pętla rozgrywki.</span></li>
+        <li class="p-lime"><b data-i18n="p3_t">Player Driven</b><span data-i18n="p3_d">To wasze opinie decydują, który prototyp stanie się pełną grą.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-head">
+      <span class="kicker">03</span>
+      <h2 data-i18n="contact_title">Odezwij się</h2>
+      <p data-i18n="contact_sub">Zagrałeś w demo? Masz uwagi, pomysły albo chcesz pogadać o projektowaniu gier? Napisz do nas.</p>
+    </div>
+    <div class="links" id="contactLinks"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>© <span id="year"></span> Neon Moss Studio</span>
+  <a href="#top" data-i18n="to_top">Do góry</a>
+</footer>
+
+<script src="js/games.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
