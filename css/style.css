@@ -282,3 +282,23 @@ kbd {
 .dl-act [hidden] { display: none; }
 .dl-count { color: var(--muted); font-size: 13px; }
 @media (max-width: 760px) { .dl-act { align-items: flex-start; } }
+
+/* galeria zrzutów + lightbox (play.html) */
+.shots { margin: 48px 0 0; }
+.shots[hidden] { display: none; }
+.shots h2 { margin: 0 0 18px; font: 900 clamp(26px, 3.6vw, 36px)/1.1 var(--font-head); color: var(--lime); text-shadow: 0 0 18px rgba(200,255,60,.3); }
+.shots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.shot {
+  padding: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; cursor: zoom-in;
+  background: var(--bg-2); aspect-ratio: 16 / 9; transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.shot img { width: 100%; height: 100%; object-fit: cover; }
+.shot:hover { border-color: var(--acc); box-shadow: 0 0 24px var(--acc-glow); transform: translateY(-2px); }
+.lb { position: fixed; inset: 0; z-index: 50; background: rgba(5,6,9,.94); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.lb[hidden] { display: none; }
+.lb img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 0 60px rgba(0,0,0,.6); }
+.lb-x, .lb-nav { position: absolute; background: rgba(20,25,32,.8); color: var(--text); border: 1px solid var(--line); border-radius: 999px; cursor: pointer; font-size: 22px; line-height: 1; }
+.lb-x { top: 16px; right: 16px; width: 44px; height: 44px; }
+.lb-nav { top: 50%; transform: translateY(-50%); width: 48px; height: 48px; font-size: 30px; }
+.lb-prev { left: 16px; } .lb-next { right: 16px; }
+.lb-x:hover, .lb-nav:hover { border-color: var(--acc); color: var(--acc); }

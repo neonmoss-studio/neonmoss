@@ -23,6 +23,7 @@
 //   release   { repo, asset } plik z GitHub Releases (wersja do pobrania + licznik)
 //   engine    np. "Godot 4"
 //   controls  lista klawiszy pod oknem gry (opcjonalnie)
+//   shots     nazwy zrzutów ekranu (galeria na stronie gry)
 //
 //  Gra otwiera sie w oknie na stronie play.html?g=<slug>.
 //  Po zmianie plikow podbij ?v= w index.html i play.html (cache przegladarki).
@@ -66,6 +67,11 @@ window.NM_GAMES = [
       { k: "M", pl: "mapa", en: "map" },
       { k: "Esc", pl: "pauza", en: "pause" }
     ],
+    // Zrzuty ekranu na stronie gry: assets/games/<slug>/shots/<nazwa>.webp (1920x1080)
+    // i <nazwa>_t.webp (miniatura 640x360). Kolejność = kolejność w galerii.
+    // Źródła (2560x1440): chambers-like/_shots/promo/na_strone
+    shots: ["s01", "s02", "s03", "s04", "s05", "s06", "s07", "s08",
+            "s09", "s10", "s11", "s12", "s13", "s14", "s15", "s16"],
     // Wersja na Windows z GitHub Releases. Link zawsze do najnowszego release,
     // licznik pobran z API GitHuba. Dopoki release nie istnieje, przycisk jest wyszarzony.
     release: { repo: "neonmoss-studio/neonmoss", asset: "LivLoveLoot-Windows.zip" },
