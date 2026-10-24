@@ -89,8 +89,9 @@
         fb.appendChild(el("span", null, g.title));
         cover.appendChild(fb);
       }
-      if (g.play) {
-        var ca = link(g.play, "", null, false);
+      var playUrl = g.play ? "play.html?g=" + encodeURIComponent(g.slug) : null;
+      if (playUrl) {
+        var ca = link(playUrl, "", null, false);
         ca.setAttribute("aria-label", t("play") + ": " + g.title);
         ca.appendChild(cover);
         card.appendChild(ca);
@@ -107,7 +108,7 @@
       body.appendChild(el("p", null, d[lang] || d.pl || d.en || ""));
 
       var act = el("div", "card-actions");
-      if (g.play) act.appendChild(link(g.play, "btn btn-lime btn-sm", t("play"), false));
+      if (playUrl) act.appendChild(link(playUrl, "btn btn-lime btn-sm", t("play"), false));
       if (g.download) act.appendChild(link(g.download, "btn btn-ghost btn-sm", t("download"), true));
       if (g.itch) act.appendChild(link(g.itch, "btn btn-ghost btn-sm", t("itch"), true));
       if (!g.play && !g.download && !g.itch) act.appendChild(el("span", "btn btn-off btn-sm", t("soon_btn")));
