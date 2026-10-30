@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@700;800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body class="play-page">
 <div class="grid-bg" aria-hidden="true"></div>
@@ -94,7 +94,7 @@
   <a href="./">neonmoss</a>
 </footer>
 
-<script src="js/games.js?v=8"></script>
+<script src="js/games.js?v=9"></script>
 <script>
 (function () {
   "use strict";
@@ -142,7 +142,7 @@
   if (g.release) {
     document.getElementById("dlBox").hidden = false;
     document.getElementById("dlTitle").textContent = t.dlT;
-    document.getElementById("dlInfo").textContent = t.dlI;
+    document.getElementById("dlInfo").textContent = (g.dlInfo && g.dlInfo[lang]) || t.dlI;
     document.getElementById("dlSmall").textContent = t.dlS;
     var soon = document.getElementById("dlSoon");
     soon.textContent = t.dlSoon;
@@ -240,7 +240,7 @@
   var cover = document.getElementById("startCover");
   if (g.cover) { cover.src = g.cover; cover.alt = g.title; } else { cover.remove(); }
   document.getElementById("startLabel").textContent = t.play;
-  document.getElementById("startNote").textContent = t.note;
+  document.getElementById("startNote").textContent = (g.note && g.note[lang]) || t.note;
 
   var frame = document.getElementById("frame");
   var game = document.getElementById("game");

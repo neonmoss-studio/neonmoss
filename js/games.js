@@ -24,6 +24,8 @@
 //   engine    np. "Godot 4"
 //   controls  lista klawiszy pod oknem gry (opcjonalnie)
 //   shots     nazwy zrzutów ekranu (galeria na stronie gry)
+//   note      tekst pod przyciskiem Zagraj { pl, en } (opcjonalnie)
+//   dlInfo    opis wersji na Windows { pl, en } (opcjonalnie)
 //   about     opis gry na stronie gry { en: {...}, pl: {...} }: tagline, intro, sections, features
 //
 //  Gra otwiera sie w oknie na stronie play.html?g=<slug>.
@@ -138,6 +140,106 @@ window.NM_GAMES = [
     download: null,
     itch: null
   }
+  ,{
+    slug: "hourspire",
+    title: "Hourspire",
+    status: "demo",
+    cover: "assets/games/hourspire.jpg",
+    accent: "cyan",
+    engine: "Godot",
+    tags: ["roguelite", "action", "pixel art"],
+    desc: {
+      pl: "Roguelite akcji w świecie pixel art, w którym czas jest twoim życiem i walutą. Wspinaj się na Wieżę Czasu, walcz na arenach, kupuj karty za sekundy i dotrwaj do Strażnika Zegara, zanim zegar wybije zero.",
+      en: "An action roguelite in a pixel art world where time is both your life and your currency. Climb the Tower of Time, fight in arenas, buy cards with seconds and reach the Clock Guardian before the clock hits zero."
+    },
+    play: "games/hourspire/",
+    // Tekst pod przyciskiem Zagraj i opis wersji na Windows (inne niz domyslne w play.html)
+    note: { pl: "Ok. 460 MB do pobrania. Dźwięk startuje po kliknięciu.",
+            en: "About 460 MB to download. Sound starts after you click." },
+    dlInfo: { pl: "Wersja w przeglądarce ma słabszą grafikę (bez mgły wolumetrycznej i części świateł) i może lekko przycinać. Pobierz wersję na Windows: instalator ze skrótem na pulpicie, pełna grafika i dźwięk.",
+              en: "The browser version has lower quality graphics (no volumetric fog and fewer lights) and may stutter a bit. Get the Windows version: an installer with a desktop shortcut, full graphics and sound." },
+    controls: [
+      { k: "W A S D", pl: "ruch", en: "move" },
+      { k: "Mysz / Mouse", pl: "celowanie", en: "aim" },
+      { k: "LPM / LMB", pl: "strzał", en: "shoot" },
+      { k: "Spacja / Space", pl: "skok", en: "jump" },
+      { k: "Shift", pl: "unik", en: "dodge" },
+      { k: "Q E R", pl: "runy", en: "runes" },
+      { k: "F", pl: "rozmowa", en: "talk" },
+      { k: "Tab", pl: "mechanizm", en: "mechanism" },
+      { k: "Esc", pl: "pauza", en: "pause" }
+    ],
+    // Źródła (2560x1440): Desktop\DAWID\HOURSPIRES_strona\hourspire\obrazy
+    // Pierwsze 18 = galeria brata, 19 do 23 = obrazy przy sekcjach opisu.
+    shots: ["intro_wieza", "intro_zegarmistrz", "menu", "mechanizm", "bronie", "karty",
+            "arena", "boss", "zlodziej", "komnata", "wspinaczka", "bestiariusz",
+            "intro_mag_portal", "intro_komnata", "intro_zegar", "intro_piec", "intro_golem",
+            "zegarmistrz_twarz", "intro_wedrowiec", "postacie", "intro_portal",
+            "intro_klepsydra", "intro_golem_mag"],
+    about: {
+      en: {
+        tagline: "Every second is your life. And your coin.",
+        intro: "Hourspire is a climb up a tower where time has stopped. The clock never stops ticking: every hit takes seconds away, every victory gives them back. You spend those same seconds at the Clockmaker on cards and runes. The more you buy, the less time you have for the next floor.",
+        sections: [
+          { title: "A Tower Where Time Stood Still", shot: 19,
+            text: "Once everything here was ticking. Then the great cog cracked and the sands of time stopped flowing. The Wanderer wakes up on a stone floor, grabs a staff and heads up. The Clock Guardians wait at the top, and on every floor something wants to steal his last seconds." },
+          { title: "Pick Your Hero and Weapon", shot: 20,
+            text: "Every character and every weapon changes how you play.",
+            bullets: ["Wanderer: 30 s at the start and 2 rune slots. A safe pick for any climb.",
+                      "Clockmaker: only 20 s at the start, but 3 rune slots. Unlock her with Guardian Shards.",
+                      "Wanderer's Lantern, Chronomancer's Staff and Clockwork Crossbow: different damage, pace and abilities."] },
+          { title: "Fight Time in the Arenas", shot: 21,
+            text: "Every floor is a different trial: waves of enemies in the arena, escaping the clock, a siege, crystal gathering or a platform climb to the top where a portal opens. Shoot to the beat of the music to build an endless combo, dodge to the beat to win back seconds. Tickers, Cuckoos, Chimes, Mirrors and Second Thieves will not wait for you to get ready." },
+          { title: "Pay With Seconds, Build Your Mechanism", shot: 22,
+            text: "Between floors you rest in the Clockmaker's Chamber. At the Card Altar you buy upgrades and runes, paying with your own time. The Second Thief will lend you time and sell you cursed cards, but he always takes his share back. The Clockmaker trades the cogs you collect from fallen enemies, and two matching cards fuse into a legendary one." },
+          { title: "Choose Your Path, Face the Guardian", shot: 23,
+            text: "Three portals lead out of the Chamber: each one is a different floor, map, reward and modifier. Choose carefully, because the Clockwork Golem waits on the tenth floor. Jump over its shockwave, then shoot the exposed core before it closes again." }
+        ],
+        features: [
+          "Real time action roguelite where time is both your life and your currency",
+          "8 floor types: arena, escape, siege, gathering, climb, elite, vault and events",
+          "Cards, runes and legendary cards bought with seconds in the Clockmaker's Chamber",
+          "A Mechanism with 32 cogs and 3 weapons to unlock",
+          "A Chronicle with 30 challenges and a bestiary of enemies",
+          "Clockwork Golem: a Clock Guardian with a two phase fight",
+          "Rhythm combat, endless combos and a leaderboard of best runs",
+          "Hand animated intro and cutscenes, English and Polish"
+        ]
+      },
+      pl: {
+        tagline: "Każda sekunda to twoje życie. I twoja moneta.",
+        intro: "Hourspire to wspinaczka po wieży, w której zatrzymał się czas. Zegar odlicza nieustannie: każde trafienie zabiera ci sekundy, każde zwycięstwo je oddaje. Te same sekundy wydajesz u Zegarmistrza na karty i runy. Im więcej kupisz, tym mniej masz czasu na kolejne piętro.",
+        sections: [
+          { title: "Wieża, w której stanął czas", shot: 19,
+            text: "Kiedyś wszystko tu tykało. Potem wielka zębatka pękła, a piasek czasu przestał płynąć. Wędrowiec budzi się na kamiennej posadzce, sięga po laskę i rusza w górę. Na szczycie czekają Strażnicy Zegara, a na każdym piętrze coś, co chce ukraść mu ostatnie sekundy." },
+          { title: "Wybierz bohatera i broń", shot: 20,
+            text: "Każda postać i każda broń zmienia styl gry.",
+            bullets: ["Wędrowiec: 30 s na start i 2 sloty na runy. Pewny wybór na każdą wspinaczkę.",
+                      "Zegarmistrzyni: tylko 20 s na start, ale 3 sloty na runy. Odblokujesz ją Odłamkami Strażnika.",
+                      "Latarnia Wędrowca, Laska Chronomanty i Zegarowa Kusza: inne obrażenia, tempo i zdolności."] },
+          { title: "Walcz z czasem na arenach", shot: 21,
+            text: "Każde piętro to inna próba: fale wrogów na arenie, ucieczka przed zegarem, oblężenie, zbieranie kryształów albo wspinaczka po platformach na szczyt, gdzie otwiera się portal. Strzelaj w rytm muzyki, żeby nabijać combo bez limitu, unikaj w rytm, żeby odzyskiwać sekundy. Tykacze, Kukułki, Kuranty, Lustra i Złodzieje Sekund nie czekają, aż się przygotujesz." },
+          { title: "Płać sekundami, buduj swój mechanizm", shot: 22,
+            text: "Między piętrami odpoczywasz w Komnacie Zegarmistrza. Na Ołtarzu Kart kupujesz ulepszenia i runy, płacąc własnym czasem. Złodziej Sekund pożyczy ci czas i sprzeda przeklęte karty, ale zawsze odbierze swoje. Zegarmistrz wymieni trybiki zebrane z pokonanych wrogów, a dwie pasujące karty połączysz w kartę legendarną." },
+          { title: "Wybierz drogę i stań przed Strażnikiem", shot: 23,
+            text: "Z Komnaty prowadzą trzy portale: każdy to inne piętro, inna mapa, inna nagroda i inny modyfikator. Wybierz ostrożnie, bo na dziesiątym piętrze czeka Zegarowy Golem. Przeskocz jego falę uderzeniową, a potem strzelaj w odsłonięty rdzeń, zanim znów się zamknie." }
+        ],
+        features: [
+          "Roguelite akcji w czasie rzeczywistym, w którym czas jest jednocześnie życiem i walutą",
+          "8 rodzajów pięter: arena, ucieczka, oblężenie, zbieranie, wspinaczka, elita, skarbiec i wydarzenia",
+          "Karty, runy i karty legendarne kupowane za sekundy w Komnacie Zegarmistrza",
+          "Mechanizm z 32 zębatkami i 3 bronie do odblokowania",
+          "Kronika z 30 wyzwaniami i bestiariusz wrogów",
+          "Zegarowy Golem: Strażnik Zegara z dwiema fazami walki",
+          "Walka w rytm muzyki i combo bez limitu, ranking najlepszych runów",
+          "Ręcznie animowane intro i przerywniki, wersja polska i angielska"
+        ]
+      }
+    },
+    release: { repo: "neonmoss-studio/neonmoss", asset: "HOURSPIRE_Demo_Instalator.exe" },
+    download: null,
+    itch: null
+  }
 ];
 
 // Wspolne: sprawdza release na GitHubie i zwraca { url, count } albo null.
@@ -152,11 +254,15 @@ window.NM_release = function (g, cb) {
   fetch("https://api.github.com/repos/" + r.repo + "/releases?per_page=100")
     .then(function (res) { return res.ok ? res.json() : []; })
     .then(function (list) {
-      var count = 0, found = false;
+      // Kazda gra moze miec osobny release, wiec link idzie do pliku z najnowszego
+      // release, ktory go zawiera (dawniej: releases/latest/download/<asset>).
+      var count = 0, url = null;
       (list || []).forEach(function (rel) {
-        (rel.assets || []).forEach(function (a) { if (a.name === r.asset) { found = true; count += a.download_count || 0; } });
+        (rel.assets || []).forEach(function (a) {
+          if (a.name === r.asset) { count += a.download_count || 0; if (!url) url = a.browser_download_url; }
+        });
       });
-      var v = found ? { url: "https://github.com/" + r.repo + "/releases/latest/download/" + r.asset, count: count } : null;
+      var v = url ? { url: url, count: count } : null;
       try { sessionStorage.setItem(key, JSON.stringify({ t: now, v: v })); } catch (e) {}
       cb(v);
     })
