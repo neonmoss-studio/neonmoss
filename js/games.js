@@ -142,7 +142,7 @@ window.NM_GAMES = [
   }
   ,{
     slug: "hourspire",
-    title: "Hourspire",
+    title: "Hours of Spire",
     status: "demo",
     cover: "assets/games/hourspire.jpg",
     accent: "cyan",
@@ -179,7 +179,7 @@ window.NM_GAMES = [
     about: {
       en: {
         tagline: "Every second is your life. And your coin.",
-        intro: "Hourspire is a climb up a tower where time has stopped. The clock never stops ticking: every hit takes seconds away, every victory gives them back. You spend those same seconds at the Clockmaker on cards and runes. The more you buy, the less time you have for the next floor.",
+        intro: "Hours of Spire is a climb up a tower where time has stopped. The clock never stops ticking: every hit takes seconds away, every victory gives them back. You spend those same seconds at the Clockmaker on cards and runes. The more you buy, the less time you have for the next floor.",
         sections: [
           { title: "A Tower Where Time Stood Still", shot: 19,
             text: "Once everything here was ticking. Then the great cog cracked and the sands of time stopped flowing. The Wanderer wakes up on a stone floor, grabs a staff and heads up. The Clock Guardians wait at the top, and on every floor something wants to steal his last seconds." },
@@ -208,7 +208,7 @@ window.NM_GAMES = [
       },
       pl: {
         tagline: "Każda sekunda to twoje życie. I twoja moneta.",
-        intro: "Hourspire to wspinaczka po wieży, w której zatrzymał się czas. Zegar odlicza nieustannie: każde trafienie zabiera ci sekundy, każde zwycięstwo je oddaje. Te same sekundy wydajesz u Zegarmistrza na karty i runy. Im więcej kupisz, tym mniej masz czasu na kolejne piętro.",
+        intro: "Hours of Spire to wspinaczka po wieży, w której zatrzymał się czas. Zegar odlicza nieustannie: każde trafienie zabiera ci sekundy, każde zwycięstwo je oddaje. Te same sekundy wydajesz u Zegarmistrza na karty i runy. Im więcej kupisz, tym mniej masz czasu na kolejne piętro.",
         sections: [
           { title: "Wieża, w której stanął czas", shot: 19,
             text: "Kiedyś wszystko tu tykało. Potem wielka zębatka pękła, a piasek czasu przestał płynąć. Wędrowiec budzi się na kamiennej posadzce, sięga po laskę i rusza w górę. Na szczycie czekają Strażnicy Zegara, a na każdym piętrze coś, co chce ukraść mu ostatnie sekundy." },
