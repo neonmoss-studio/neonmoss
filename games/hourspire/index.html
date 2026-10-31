@@ -109,45 +109,9 @@ body {
 			<div id="status-notice"></div>
 		</div>
 
-		<script>
-// NEON MOSS: index.pck (462 MB) jest za duzy na GitHuba (limit 100 MB na plik),
-// wiec lezy w czesciach index.pck.000, .001 ... Ten kod sklada je w locie,
-// gdy Godot pobiera index.pck. Zeby wrocic do jednego pliku: ustaw PCK_PARTS = 0.
-const PCK_PARTS = 5;
-(function () {
-	if (!PCK_PARTS) return;
-	const origFetch = window.fetch.bind(window);
-	window.fetch = function (input, init) {
-		const url = typeof input === 'string' ? input : input.url;
-		if (!/(^|\/)index\.pck(\?|$)/.test(url)) return origFetch(input, init);
-		let i = 0, reader = null;
-		const stream = new ReadableStream({
-			pull(ctrl) {
-				const next = () => {
-					if (!reader) {
-						if (i >= PCK_PARTS) { ctrl.close(); return; }
-						const part = 'index.pck.' + String(i++).padStart(3, '0');
-						return origFetch(part).then((r) => {
-							if (!r.ok) throw new Error('Failed loading file ' + part);
-							reader = r.body.getReader();
-							return next();
-						});
-					}
-					return reader.read().then((res) => {
-						if (res.done) { reader = null; return next(); }
-						ctrl.enqueue(res.value);
-					});
-				};
-				return next();
-			},
-		});
-		return Promise.resolve(new Response(stream, { status: 200, headers: { 'Content-Type': 'application/octet-stream' } }));
-	};
-}());
-		</script>
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":462591924,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -235,19 +199,36 @@ const engine = new Engine(GODOT_CONFIG);
 		}
 	} else {
 		setStatusMode('progress');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (current > 0 && total > 0) {
-					statusProgress.value = current;
-					statusProgress.max = total;
-				} else {
-					statusProgress.removeAttribute('value');
-					statusProgress.removeAttribute('max');
-				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-		}, displayFailureNotice);
+		// HOURSPIRE: paczka gry podzielona na czesci po 95 MB (limity hostingow); tu sa pobierane do jednego bufora
+		const CZESCI = ["index.pck.part0", "index.pck.part1", "index.pck.part2", "index.pck.part3", "index.pck.part4"];
+		const ROZMIARY = [99614720, 99614720, 99614720, 99614720, 45339064];
+		const WASM = 39514754;
+		const RAZEM = ROZMIARY.reduce((a, b) => a + b, 0) + WASM;
+		let pobrane = 0, wasmPobrane = 0;
+		function postep() { statusProgress.value = pobrane + wasmPobrane; statusProgress.max = RAZEM; }
+		async function pobierzCzesc(url, rozmiar, cel, start) {
+			const odp = await fetch(url);
+			if (!odp.ok) throw new Error('Nie udalo sie pobrac ' + url + ' (' + odp.status + ')');
+			const czytnik = odp.body.getReader();
+			let poz = 0;
+			for (;;) {
+				const { done, value } = await czytnik.read();
+				if (done) break;
+				cel.set(value, start + poz);
+				poz += value.length; pobrane += value.length; postep();
+			}
+			if (poz !== rozmiar) throw new Error('Niepelny plik ' + url);
+		}
+		(async () => {
+			const wasmGotowy = engine.init('index');
+			const pck = new Uint8Array(ROZMIARY.reduce((a, b) => a + b, 0));
+			let start = 0;
+			for (let i = 0; i < CZESCI.length; i++) { await pobierzCzesc(CZESCI[i], ROZMIARY[i], pck, start); start += ROZMIARY[i]; }
+			await wasmGotowy;
+			wasmPobrane = WASM; postep();
+			await engine.preloadFile(pck.buffer, 'index.pck');
+			await engine.start({ 'args': ['--main-pack', 'index.pck'] });
+		})().then(() => { setStatusMode('hidden'); }, displayFailureNotice);
 	}
 }());
 		</script>
