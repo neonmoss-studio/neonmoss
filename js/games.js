@@ -47,6 +47,102 @@ window.NM_SITE = {
 
 window.NM_GAMES = [
   {
+    slug: "grass-to-mars",
+    title: "Get Your Grass to Mars",
+    status: "demo",
+    cover: "assets/games/grass-to-mars.jpg",
+    accent: "lime",
+    engine: "Godot",
+    tags: ["3D", "idle", "terraforming"],
+    desc: {
+      pl: "Przytulna gra 3D o sianiu trawy na Marsie. Zaczynasz z jedną konewką i polem golfowym do zazielenienia. Zarabiaj na każdym metrze trawnika, kupuj węże, zraszacze, wieże ciśnień, roboty i traktor, aż czerwona planeta zrobi się zielona.",
+      en: "A cozy 3D game about growing grass on Mars. You start with one watering can and a golf course to turn green. Earn money from every square metre of lawn, buy hoses, sprinklers, water towers, robots and a tractor, until the red planet turns green."
+    },
+    play: "games/grass-to-mars/",
+    note: { pl: "Ok. 230 MB do pobrania. Dźwięk startuje po kliknięciu.",
+            en: "About 230 MB to download. Sound starts after you click." },
+    dlInfo: { pl: "Wersja w przeglądarce ma uproszczoną grafikę (mniej trawy, prostsze cienie i tekstury). Pobierz wersję na Windows: pełna grafika i płynniejsza gra.",
+              en: "The browser version has simplified graphics (less grass, simpler shadows and textures). Get the Windows version: full graphics and smoother play." },
+    controls: [
+      { k: "W A S D", pl: "ruch / jazda", en: "walk / drive" },
+      { k: "Shift", pl: "trucht", en: "jog" },
+      { k: "Mysz / Mouse", pl: "rozglądanie", en: "look around" },
+      { k: "Kółko / Wheel", pl: "zoom", en: "zoom" },
+      { k: "LPM / LMB", pl: "podlewanie, sianie, koszenie", en: "water, sow, mow" },
+      { k: "F", pl: "narzędzie stale włączone", en: "keep the tool running" },
+      { k: "Q", pl: "zmiana narzędzia", en: "switch tool" },
+      { k: "E", pl: "woda, sklep, wsiadanie", en: "refill, shop, get in / out" },
+      { k: "B G", pl: "budowa zestawu, następny", en: "build a kit, next kit" },
+      { k: "M", pl: "mapa", en: "map" },
+      { k: "Z", pl: "widok z orbity", en: "orbit view" },
+      { k: "Esc", pl: "pauza", en: "pause" }
+    ],
+    // Źródła (1920x1080): P:\Godot\Media\take your grass to mars\web\itch\screenshots (F12 w edytorze)
+    shots: ["menu", "sciezka", "pro_shop", "new_demo", "astronauta", "wieza", "mars", "zmierzch",
+            "pierwsza_osoba", "kosiarka", "sklep", "garaz", "hangar", "traktor", "z_gory"],
+    about: {
+      en: {
+        tagline: "One watering can. One planet. New mission: grass.",
+        intro: "The Mars Exploration Authority went bankrupt. TurfKing Landscaping bought all of it: the base, the rover and you. Your new job is groundskeeper of the first golf course on Mars, and the whole equipment budget went on a launch party. So you get a watering can. One. It's green, at least.",
+        sections: [
+          { title: "Start With a Watering Can", shot: 2,
+            text: "Walk out of the base, sow the red dust and water it until the grass comes up. Every square metre of lawn earns money, and the course has 18 holes waiting to turn green. Fill the can at the tank, hold the mouse button and watch the dust turn into turf." },
+          { title: "Spend It at the Pro Shop", shot: 11,
+            text: "The Pro Shop sells everything a groundskeeper on Mars could want.",
+            bullets: ["Tools: a bigger can, a wider rose, Moon Boots, fertilizer, flower seeds and a push mower.",
+                      "Water: a garden hose, sprinklers and water towers that keep the lawn green on their own.",
+                      "Robots and vehicles: a solar station, robot mowers, seeder bots, a garage and a lawn tractor."] },
+          { title: "Build Your Watering Network", shot: 6,
+            text: "Place sprinkler and water tower kits wherever the lawn needs them. Each one shows its reach before you build it, so you can cover the course without wasting a drop." },
+          { title: "Mow, Drive and Look Closer", shot: 10,
+            text: "Push the mower around the fairways, then drive the lawn tractor out of the garage and mow wide strips in one pass. Scroll all the way in to see the course through the astronaut's helmet." },
+          { title: "See the Whole Planet", shot: 7,
+            text: "Zoom out past the clouds to orbit view. Your lawn is a tiny green dot on a red planet. At this pace greening all of Mars takes tens of thousands of years. The demo shows how it starts." }
+        ],
+        features: [
+          "A cozy 3D lawn game on Mars, from one watering can to a whole fleet of machines",
+          "A golf course with 18 holes to turn green",
+          "Pro Shop with tools, water, robots, vehicles and perks",
+          "Sprinklers, water towers and seeder bots placed where you want them",
+          "Push mower, lawn tractor and robot mowers",
+          "Day and night cycle and a zoom from first person to orbit view",
+          "Your lawn saves automatically"
+        ]
+      },
+      pl: {
+        tagline: "Jedna konewka. Jedna planeta. Nowa misja: trawa.",
+        intro: "Marsjańska Agencja Eksploracji zbankrutowała. TurfKing Landscaping kupił wszystko: bazę, łazik i ciebie. Twoja nowa praca to greenkeeper pierwszego pola golfowego na Marsie, a cały budżet na sprzęt poszedł na imprezę z okazji startu. Dostajesz więc konewkę. Jedną. Przynajmniej jest zielona.",
+        sections: [
+          { title: "Zacznij od konewki", shot: 2,
+            text: "Wyjdź z bazy, posiej czerwony pył i podlewaj, aż wzejdzie trawa. Każdy metr kwadratowy trawnika przynosi pieniądze, a na polu czeka 18 dołków do zazielenienia. Napełnij konewkę przy zbiorniku, przytrzymaj przycisk myszy i patrz, jak pył zmienia się w murawę." },
+          { title: "Wydawaj w Pro Shopie", shot: 11,
+            text: "Pro Shop ma wszystko, czego potrzebuje greenkeeper na Marsie.",
+            bullets: ["Narzędzia: większa konewka, szersze sitko, Księżycowe Buty, nawóz, nasiona kwiatów i kosiarka ręczna.",
+                      "Woda: wąż ogrodowy, zraszacze i wieże ciśnień, które same utrzymują trawnik w zieleni.",
+                      "Roboty i pojazdy: stacja solarna, roboty koszące, roboty siewne, garaż i traktorek."] },
+          { title: "Zbuduj sieć nawadniania", shot: 6,
+            text: "Stawiaj zestawy zraszaczy i wież ciśnień tam, gdzie trawnik ich potrzebuje. Każdy pokazuje swój zasięg, zanim go postawisz, więc pokryjesz pole bez marnowania kropli." },
+          { title: "Koś, jeździj i przyjrzyj się z bliska", shot: 10,
+            text: "Pchaj kosiarkę po torach, a potem wyjedź traktorkiem z garażu i koś szerokie pasy za jednym przejazdem. Przybliż widok do końca, a zobaczysz pole przez hełm astronauty." },
+          { title: "Zobacz całą planetę", shot: 7,
+            text: "Oddal widok ponad chmury, aż do orbity. Twój trawnik to maleńka zielona kropka na czerwonej planecie. W tym tempie zazielenienie całego Marsa zajmie dziesiątki tysięcy lat. Demo pokazuje, jak to się zaczyna." }
+        ],
+        features: [
+          "Przytulna gra 3D o trawniku na Marsie: od jednej konewki do całej floty maszyn",
+          "Pole golfowe z 18 dołkami do zazielenienia",
+          "Pro Shop z narzędziami, wodą, robotami, pojazdami i bonusami",
+          "Zraszacze, wieże ciśnień i roboty siewne stawiane tam, gdzie chcesz",
+          "Kosiarka ręczna, traktorek i roboty koszące",
+          "Cykl dnia i nocy oraz zoom od widoku z oczu do orbity",
+          "Trawnik zapisuje się automatycznie"
+        ]
+      }
+    },
+    release: { repo: "neonmoss-studio/neonmoss", asset: "GetYourGrassToMars_Demo_Windows.zip" },
+    download: null,
+    itch: null
+  },
+  {
     slug: "liv-love-loot",
     title: "Liv Love Loot",
     status: "demo",
