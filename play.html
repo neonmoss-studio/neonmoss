@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@700;800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=13">
+<link rel="stylesheet" href="css/style.css?v=14">
 </head>
 <body class="play-page">
 <div class="grid-bg" aria-hidden="true"></div>
@@ -59,6 +59,14 @@
     </div>
   </section>
 
+  <section class="dl-box wish-box" id="wishBox" hidden>
+    <div class="dl-text">
+      <b id="wishTitle"></b>
+      <p id="wishInfo"></p>
+    </div>
+    <div class="wish-act"><iframe id="wishFrame" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" title="Wishlist"></iframe></div>
+  </section>
+
   <p class="play-desc" id="gDesc"></p>
 
   <section class="about-game" id="aboutBox" hidden>
@@ -94,7 +102,7 @@
   <a href="./">neonmoss</a>
 </footer>
 
-<script src="js/games.js?v=13"></script>
+<script src="js/games.js?v=14"></script>
 <script>
 (function () {
   "use strict";
@@ -103,11 +111,13 @@
           dlT: "Chcesz pełną jakość?", dlI: "Wersja w przeglądarce ma słabszą grafikę i dźwięk i może lekko przycinać. Pobierz wersję na Windows: jeden plik .exe, bez instalacji. Rozpakuj i graj.",
           dlS: "Windows może pokazać ostrzeżenie SmartScreen, bo gra nie ma podpisu. Kliknij „Więcej informacji”, potem „Uruchom mimo to”.",
           dlB: "Pobierz na Windows", dlSoon: "Wersja na Windows wkrótce", dlC: "pobrań", shots: "Zrzuty ekranu", feat: "Co znajdziesz w grze",
+          wishT: "Dodaj grę do wishlisty", wishI: "Zostaw e-mail, a napiszemy, gdy pojawi się nowa wersja albo pełna gra. Bez spamu.",
           pressT: "Streamer albo prasa?", pressX: "Chcesz pokazać grę na kanale albo napisać o niej? Napisz do nas: " },
     en: { back: "← Games", play: "Play demo", fs: "Fullscreen", note: "About 120 MB to download. Sound starts after you click.", missing: "Game not found.",
           dlT: "Want full quality?", dlI: "The browser version has lower quality graphics and sound and may stutter a bit. Get the Windows version: a single .exe, no install. Unzip and play.",
           dlS: "Windows may show a SmartScreen warning because the game is not signed. Click “More info”, then “Run anyway”.",
           dlB: "Download for Windows", dlSoon: "Windows version coming soon", dlC: "downloads", shots: "Screenshots", feat: "Features",
+          wishT: "Wishlist this game", wishI: "Leave your email and we will write when a new version or the full game is out. No spam.",
           pressT: "Streamer or press?", pressX: "Want to cover the game on your channel or website? Write to us: " }
   };
   var lang;
@@ -154,6 +164,15 @@
       var c = document.getElementById("dlCount");
       c.textContent = r.count + " " + t.dlC; c.hidden = false;
     });
+  }
+
+  if (g.wishlist) {
+    document.getElementById("wishBox").hidden = false;
+    document.getElementById("wishTitle").textContent = t.wishT;
+    document.getElementById("wishInfo").textContent = t.wishI;
+    document.getElementById("wishFrame").src = "https://subscribe-forms.beehiiv.com/" + g.wishlist;
+    var ws = document.createElement("script"); ws.async = true; ws.src = "https://subscribe-forms.beehiiv.com/embed.js";
+    document.body.appendChild(ws);
   }
 
   // galeria: miniatury (g.shots[i].thumb) i pełne zrzuty (g.shots[i].full) w lightboxie

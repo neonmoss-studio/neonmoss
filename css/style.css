@@ -337,5 +337,19 @@ kbd {
 }
 
 /* Wishlist (formularz beehiiv) */
-.wish { max-width: 560px; }
-.wish iframe { display: block; width: 100%; height: 56px; margin: 0; border: 0; border-radius: 0; background: transparent; }
+.wish-section { padding-top: 40px; }
+.wish-card {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px 40px;
+  padding: 36px 40px; border-radius: var(--radius); background: var(--panel);
+  border: 1px solid rgba(200,255,60,.55);
+  box-shadow: 0 0 26px rgba(200,255,60,.16), inset 0 0 50px rgba(200,255,60,.05);
+}
+.wish-text { margin: 0; flex: 1 1 360px; }
+.wish-text h2 { font-size: clamp(30px, 4.5vw, 46px); }
+.wish { flex: 0 1 540px; width: 100%; }
+.wish iframe { display: block; width: 100%; height: 60px; margin: 0; border: 0; border-radius: 0; background: var(--panel); }
+@media (max-width: 760px) { .wish-card { padding: 26px 20px; } }
+.wish-box { border-left-color: var(--lime); box-shadow: 0 0 22px rgba(200,255,60,.12); }
+.wish-box .dl-text b { color: var(--lime); }
+.wish-act { flex: 0 1 540px; width: 100%; }
+.wish-act iframe { display: block; width: 100%; height: 60px; margin: 0; border: 0; background: var(--panel); }
