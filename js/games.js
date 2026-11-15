@@ -26,6 +26,7 @@
 //   shots     nazwy zrzutów ekranu (galeria na stronie gry)
 //   note      tekst pod przyciskiem Zagraj { pl, en } (opcjonalnie)
 //   dlInfo    opis wersji na Windows { pl, en } (opcjonalnie)
+//   wishlist  id formularza beehiiv: pole zapisu na wishliste na stronie gry (opcjonalnie)
 //   about     opis gry na stronie gry { en: {...}, pl: {...} }: tagline, intro, sections, features
 //
 //  Gra otwiera sie w oknie na stronie play.html?g=<slug>.
@@ -59,6 +60,8 @@ window.NM_GAMES = [
       en: "A cozy 3D game about growing grass on Mars. You start with one watering can and a golf course to turn green. Earn money from every square metre of lawn, buy hoses, sprinklers, water towers, robots and a tractor, until the red planet turns green."
     },
     play: "games/grass-to-mars/",
+    // Formularz wishlisty w beehiiv (id formularza). Zapisy dostaja tag grass-to-mars.
+    wishlist: "c3a706b1-e086-4fe3-be31-4f766507d7ee",
     note: { pl: "Ok. 230 MB do pobrania. Dźwięk startuje po kliknięciu.",
             en: "About 230 MB to download. Sound starts after you click." },
     dlInfo: { pl: "Wersja w przeglądarce ma uproszczoną grafikę (mniej trawy, prostsze cienie i tekstury). Pobierz wersję na Windows: pełna grafika i płynniejsza gra.",
