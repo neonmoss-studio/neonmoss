@@ -20,7 +20,7 @@
       contact_title: "Odezwij się", contact_sub: "Zagrałeś w demo? Masz uwagi, pomysły albo chcesz pogadać o projektowaniu gier? Napisz do nas.",
       contact_none: "Linki pojawią się wkrótce.", link_soon: "wkrótce",
       to_top: "Do góry",
-      st_demo: "Demo", st_soon: "Wkrótce", st_released: "Wydana",
+      st_demo: "Demo", st_soon: "Wkrótce", st_released: "Wydana", st_update: "Nowa wersja",
       play: "Zagraj w demo", download: "Pobierz", itch: "itch.io", soon_btn: "Demo wkrótce", win_dl: "Pobierz na Windows",
       slot_t: "Coś się warzy...", slot_d: "Kolejny prototyp nabiera kształtu. Obserwuj nas albo zajrzyj wkrótce, żeby zagrać w następny eksperyment.",
       lang_aria: "Zmień język"
@@ -41,7 +41,7 @@
       contact_title: "Get in Touch", contact_sub: "Played a demo? Have feedback, ideas, or just want to chat game design? Reach out to us.",
       contact_none: "Links coming soon.", link_soon: "soon",
       to_top: "Back to top",
-      st_demo: "Demo", st_soon: "Soon", st_released: "Released",
+      st_demo: "Demo", st_soon: "Soon", st_released: "Released", st_update: "New update",
       play: "Play demo", download: "Download", itch: "itch.io", soon_btn: "Demo soon", win_dl: "Download for Windows",
       slot_t: "Something is brewing...", slot_d: "The next prototype is taking shape. Follow us or check back soon to play the next experiment.",
       lang_aria: "Change language"
@@ -71,6 +71,15 @@
     return a;
   }
 
+  // Badge "Nowa wersja": widoczny przez update.days dni (domyslnie 30) od update.date.
+  function isFresh(u) {
+    if (!u || !u.date) return false;
+    var d = Date.parse(u.date + "T00:00:00");
+    if (isNaN(d)) return false;
+    var age = (Date.now() - d) / 86400000;
+    return age >= 0 && age < (u.days || 30);
+  }
+
   // ---------- karty gier ----------
   function renderGames() {
     var grid = document.getElementById("gamesGrid");
@@ -82,6 +91,12 @@
       var cover = el("div", "cover");
       var st = g.status || "demo";
       cover.appendChild(el("span", "badge " + st, t("st_" + st)));
+      if (isFresh(g.update)) {
+        var ub = el("span", "badge-update");
+        ub.appendChild(el("i"));
+        ub.appendChild(document.createTextNode(t("st_update")));
+        cover.appendChild(ub);
+      }
       if (g.cover) {
         var img = el("img");
         img.src = g.cover; img.alt = g.title; img.loading = "lazy";

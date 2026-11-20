@@ -26,6 +26,7 @@
 //   shots     nazwy zrzutów ekranu (galeria na stronie gry)
 //   note      tekst pod przyciskiem Zagraj { pl, en } (opcjonalnie)
 //   dlInfo    opis wersji na Windows { pl, en } (opcjonalnie)
+//   update    { date: "RRRR-MM-DD", days: 30 } badge "Nowa wersja" na kaflu przez days dni (opcjonalnie)
 //   wishlist  id formularza beehiiv: pole zapisu na wishliste na stronie gry (opcjonalnie)
 //   about     opis gry na stronie gry { en: {...}, pl: {...} }: tagline, intro, sections, features
 //
@@ -51,6 +52,7 @@ window.NM_GAMES = [
     slug: "grass-to-mars",
     title: "Get Your Grass to Mars",
     status: "demo",
+    update: { date: "2026-11-20", days: 30 },
     cover: "assets/games/grass-to-mars.jpg",
     accent: "lime",
     engine: "Godot",

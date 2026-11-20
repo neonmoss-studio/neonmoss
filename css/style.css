@@ -164,6 +164,17 @@ main, .nav, .foot { position: relative; z-index: 1; }
 .badge.demo { color: var(--lime); box-shadow: var(--glow-lime); }
 .badge.soon { color: var(--magenta); }
 .badge.released { color: var(--cyan); }
+.badge-update {
+  position: absolute; top: 14px; left: 14px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 400 10px/1 var(--font-wide); letter-spacing: .16em; text-transform: uppercase;
+  padding: 8px 12px 8px 10px; border-radius: 999px; color: #0b0e12;
+  background: var(--magenta); box-shadow: var(--glow-magenta);
+  animation: upd-pulse 2.4s ease-in-out infinite;
+}
+.badge-update i { width: 7px; height: 7px; border-radius: 50%; background: #0b0e12; animation: upd-dot 1.2s ease-in-out infinite; }
+@keyframes upd-pulse { 0%,100% { box-shadow: var(--glow-magenta); } 50% { box-shadow: 0 0 14px rgba(255,63,209,.8), 0 0 40px rgba(255,63,209,.4); } }
+@keyframes upd-dot { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
 
 .card-body { display: flex; flex-direction: column; gap: 12px; padding: 22px 22px 24px; flex: 1; }
 .card-body h3 { margin: 0; font: 800 24px/1.15 var(--font-head); }
@@ -223,7 +234,7 @@ main, .nav, .foot { position: relative; z-index: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero-glow, .hero-logo { animation: none; }
+  .hero-glow, .hero-logo, .badge-update, .badge-update i { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
