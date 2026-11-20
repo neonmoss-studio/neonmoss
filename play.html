@@ -173,6 +173,13 @@
     document.getElementById("wishFrame").src = "https://subscribe-forms.beehiiv.com/" + g.wishlist;
     var ws = document.createElement("script"); ws.async = true; ws.src = "https://subscribe-forms.beehiiv.com/embed.js";
     document.body.appendChild(ws);
+    // play.html?g=...#wishlist (link from the game): the box is shown only now, so scroll to it by hand,
+    // and once more after the download box and the form have settled
+    if (location.hash === "#wishlist") {
+      var go = function () { document.getElementById("wishBox").scrollIntoView({ block: "center", behavior: "smooth" }); };
+      requestAnimationFrame(go);
+      setTimeout(go, 800);
+    }
   }
 
   // galeria: miniatury (g.shots[i].thumb) i pełne zrzuty (g.shots[i].full) w lightboxie
