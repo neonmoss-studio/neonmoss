@@ -165,7 +165,7 @@ main, .nav, .foot { position: relative; z-index: 1; }
 .badge.soon { color: var(--magenta); }
 .badge.released { color: var(--cyan); }
 .badge-update {
-  position: absolute; top: 14px; left: 14px; z-index: 2;
+  position: absolute; right: 14px; bottom: 14px; z-index: 2;
   display: inline-flex; align-items: center; gap: 8px;
   font: 400 10px/1 var(--font-wide); letter-spacing: .16em; text-transform: uppercase;
   padding: 8px 12px 8px 10px; border-radius: 999px; color: #0b0e12;
