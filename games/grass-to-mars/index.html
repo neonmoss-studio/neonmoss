@@ -201,7 +201,7 @@ const engine = new Engine(GODOT_CONFIG);
 		setStatusMode('progress');
 		// GRASS TO MARS: paczka gry podzielona na czesci po 95 MB (limit GitHuba 100 MB); tu sa pobierane do jednego bufora
 		const CZESCI = ['index.pck.part0', 'index.pck.part1'];
-		const ROZMIARY = [99614720, 99511672];
+		const ROZMIARY = [99614720, 66205320];
 		const WASM = 39514754;
 		const RAZEM = ROZMIARY.reduce((a, b) => a + b, 0) + WASM;
 		let pobrane = 0, wasmPobrane = 0;
