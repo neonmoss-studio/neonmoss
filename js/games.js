@@ -20,7 +20,8 @@
 //   play      link do wersji w przegladarce albo null
 //   download  link do pobrania (np. itch.io) albo null
 //   itch      link do strony na itch.io albo null
-//   release   { repo, asset } plik z GitHub Releases (wersja do pobrania + licznik)
+//   release   { repo, asset } plik z GitHub Releases (wersja do pobrania + licznik);
+//             pasuje tez nazwa z numerem wersji: <asset bez .zip>_v1.1.zip
 //   engine    np. "Godot 4"
 //   controls  lista klawiszy pod oknem gry (opcjonalnie)
 //   shots     nazwy zrzutów ekranu (galeria na stronie gry)
@@ -345,11 +346,17 @@ window.NM_GAMES = [
 window.NM_release = function (g, cb) {
   var r = g && g.release;
   if (!r || !window.fetch) { cb(null); return; }
-  var key = "nm_rel_" + r.repo + "_" + r.asset, now = Date.now();
+  var key = "nm_rel2_" + r.repo + "_" + r.asset, now = Date.now();
   try {
     var c = JSON.parse(sessionStorage.getItem(key) || "null");
     if (c && now - c.t < 10 * 60 * 1000) { cb(c.v); return; }
   } catch (e) {}
+  // Pasuje dokladna nazwa (np. X.zip) albo ta sama z numerem wersji (X_v1.1.zip).
+  // GitHub zwraca release od najnowszego, wiec link idzie do najnowszej wersji.
+  var base = r.asset.replace(/\.zip$/i, "");
+  function assetMatch(n) {
+    return n === r.asset || (n.indexOf(base + "_v") === 0 && /\.zip$/i.test(n));
+  }
   fetch("https://api.github.com/repos/" + r.repo + "/releases?per_page=100")
     .then(function (res) { return res.ok ? res.json() : []; })
     .then(function (list) {
@@ -358,7 +365,7 @@ window.NM_release = function (g, cb) {
       var count = 0, url = null;
       (list || []).forEach(function (rel) {
         (rel.assets || []).forEach(function (a) {
-          if (a.name === r.asset) { count += a.download_count || 0; if (!url) url = a.browser_download_url; }
+          if (assetMatch(a.name)) { count += a.download_count || 0; if (!url) url = a.browser_download_url; }
         });
       });
       var v = url ? { url: url, count: count } : null;
