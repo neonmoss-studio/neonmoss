@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@700;800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=14">
+<link rel="stylesheet" href="css/style.css?v=16">
 </head>
 <body class="play-page">
 <div class="grid-bg" aria-hidden="true"></div>
@@ -28,6 +28,7 @@
 <main class="play-wrap">
   <div class="play-head">
     <h1 id="gTitle">…</h1>
+    <a class="upd-pill" id="updPill" href="#devlog" hidden></a>
     <div class="tags" id="gTags"></div>
   </div>
 
@@ -69,6 +70,11 @@
 
   <p class="play-desc" id="gDesc"></p>
 
+  <section class="devlog" id="devlog" hidden>
+    <h2 id="devlogTitle">Devlog</h2>
+    <div id="devlogList"></div>
+  </section>
+
   <section class="about-game" id="aboutBox" hidden>
     <p class="ag-tag" id="agTag"></p>
     <p class="ag-intro" id="agIntro"></p>
@@ -102,7 +108,7 @@
   <a href="./">neonmoss</a>
 </footer>
 
-<script src="js/games.js?v=16"></script>
+<script src="js/games.js?v=17"></script>
 <script>
 (function () {
   "use strict";
@@ -179,6 +185,73 @@
       var go = function () { document.getElementById("wishBox").scrollIntoView({ block: "center", behavior: "smooth" }); };
       requestAnimationFrame(go);
       setTimeout(go, 800);
+    }
+  }
+
+  // devlog (g.devlog, tylko po angielsku): najnowszy wpis rozwiniety, starsze zwiniete
+  var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var fmtDate = function (iso) {
+    var p = (iso || "").split("-");
+    return p.length === 3 ? (+p[2]) + " " + MON[+p[1] - 1] + " " + p[0] : (iso || "");
+  };
+  var mk = function (tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  };
+  if ((g.devlog || []).length) {
+    document.getElementById("devlog").hidden = false;
+    var dlist = document.getElementById("devlogList");
+    g.devlog.forEach(function (en, i) {
+      var box = mk("details", "dv-entry");
+      if (i === 0) box.open = true;
+      var sum = mk("summary", "dv-sum");
+      sum.appendChild(mk("span", "dv-meta", "v" + en.version + " · " + fmtDate(en.date)));
+      sum.appendChild(mk("h3", null, en.title));
+      box.appendChild(sum);
+      if (en.intro) box.appendChild(mk("p", "dv-intro", en.intro));
+      var grid = mk("div", "dv-grid");
+      (en.sections || []).forEach(function (sec) {
+        var b = mk("div", "dv-sec");
+        b.appendChild(mk("h4", null, sec.title));
+        var ul = mk("ul");
+        (sec.items || []).forEach(function (it) { ul.appendChild(mk("li", null, it)); });
+        b.appendChild(ul);
+        grid.appendChild(b);
+      });
+      box.appendChild(grid);
+      if (en.outro) box.appendChild(mk("p", "dv-outro", en.outro));
+      if ((en.links || []).length) {
+        var act = mk("div", "dv-act");
+        en.links.forEach(function (l, j) {
+          var a = mk("a", "btn btn-sm " + (j === 0 ? "btn-lime" : "btn-ghost"), l.label);
+          a.href = l.url;
+          if (l.url.charAt(0) === "#") {
+            a.addEventListener("click", function (e) {
+              var tg = document.getElementById(l.url.slice(1));
+              if (tg && !tg.hidden) { e.preventDefault(); tg.scrollIntoView({ block: "center", behavior: "smooth" }); }
+            });
+          } else { a.target = "_blank"; a.rel = "noopener"; }
+          act.appendChild(a);
+        });
+        box.appendChild(act);
+      }
+      dlist.appendChild(box);
+    });
+    // plakietka przy tytule: przez update.days dni od update.date
+    var u = g.update, fresh = false;
+    if (u && u.date) { var age = (Date.now() - Date.parse(u.date + "T00:00:00")) / 86400000; fresh = age >= 0 && age < (u.days || 30); }
+    if (fresh) {
+      var pill = document.getElementById("updPill");
+      pill.textContent = "v" + g.devlog[0].version + " update · what's new";
+      pill.hidden = false;
+      pill.addEventListener("click", function (e) { e.preventDefault(); document.getElementById("devlog").scrollIntoView({ behavior: "smooth" }); });
+    }
+    if (location.hash === "#devlog") {
+      var goD = function () { document.getElementById("devlog").scrollIntoView({ behavior: "smooth" }); };
+      requestAnimationFrame(goD);
+      setTimeout(goD, 800);
     }
   }
 

@@ -29,6 +29,7 @@
 //   dlInfo    opis wersji na Windows { pl, en } (opcjonalnie)
 //   update    { date: "RRRR-MM-DD", days: 30 } badge "Nowa wersja" na kaflu przez days dni (opcjonalnie)
 //   wishlist  id formularza beehiiv: pole zapisu na wishliste na stronie gry (opcjonalnie)
+//   devlog    wpisy devloga (po angielsku), najnowszy pierwszy: { version, date, title, intro, sections: [{ title, items }], outro, links }
 //   about     opis gry na stronie gry { en: {...}, pl: {...} }: tagline, intro, sections, features
 //
 //  Gra otwiera sie w oknie na stronie play.html?g=<slug>.
@@ -65,13 +66,14 @@ window.NM_GAMES = [
     play: "games/grass-to-mars/",
     // Formularz wishlisty w beehiiv (id formularza). Zapisy dostaja tag grass-to-mars.
     wishlist: "c3a706b1-e086-4fe3-be31-4f766507d7ee",
-    note: { pl: "Ok. 230 MB do pobrania. Dźwięk startuje po kliknięciu.",
-            en: "About 230 MB to download. Sound starts after you click." },
+    note: { pl: "Ok. 205 MB do pobrania. Dźwięk startuje po kliknięciu.",
+            en: "About 205 MB to download. Sound starts after you click." },
     dlInfo: { pl: "Wersja w przeglądarce ma uproszczoną grafikę (mniej trawy, prostsze cienie i tekstury). Pobierz wersję na Windows: pełna grafika i płynniejsza gra.",
               en: "The browser version has simplified graphics (less grass, simpler shadows and textures). Get the Windows version: full graphics and smoother play." },
     controls: [
       { k: "W A S D", pl: "ruch / jazda", en: "walk / drive" },
       { k: "Shift", pl: "trucht", en: "jog" },
+      { k: "Spacja / Space", pl: "skok", en: "jump" },
       { k: "Mysz / Mouse", pl: "rozglądanie", en: "look around" },
       { k: "Kółko / Wheel", pl: "zoom", en: "zoom" },
       { k: "LPM / LMB", pl: "podlewanie, sianie, koszenie", en: "water, sow, mow" },
@@ -79,6 +81,7 @@ window.NM_GAMES = [
       { k: "Q", pl: "zmiana narzędzia", en: "switch tool" },
       { k: "E", pl: "woda, sklep, wsiadanie", en: "refill, shop, get in / out" },
       { k: "B G", pl: "budowa zestawu, następny", en: "build a kit, next kit" },
+      { k: ", .", pl: "przyczepność", en: "grip" },
       { k: "M", pl: "mapa", en: "map" },
       { k: "Z", pl: "widok z orbity", en: "orbit view" },
       { k: "Esc", pl: "pauza", en: "pause" }
@@ -95,7 +98,7 @@ window.NM_GAMES = [
             text: "Walk out of the base, sow the red dust and water it until the grass comes up. Every square metre of lawn earns money, and the course has 18 holes waiting to turn green. Fill the can at the tank, hold the mouse button and watch the dust turn into turf." },
           { title: "Spend It at the Pro Shop", shot: 11,
             text: "The Pro Shop sells everything a groundskeeper on Mars could want.",
-            bullets: ["Tools: a bigger can, a wider rose, Moon Boots, fertilizer, flower seeds and a push mower.",
+            bullets: ["Tools: a bigger can, a wider rose, Crater Striders, fertilizer, Fairway Seed and a push mower.",
                       "Water: a garden hose, sprinklers and water towers that keep the lawn green on their own.",
                       "Robots and vehicles: a solar station, robot mowers, seeder bots, a garage and a lawn tractor."] },
           { title: "Build Your Watering Network", shot: 6,
@@ -109,6 +112,8 @@ window.NM_GAMES = [
           "A cozy 3D lawn game on Mars, from one watering can to a whole fleet of machines",
           "A golf course with 18 holes to turn green",
           "Pro Shop with tools, water, robots, vehicles and perks",
+          "A boss who gives advice and an illustrated groundskeeper's handbook",
+          "Low gravity: loping walk, jumps and vehicles that fly over crests",
           "Sprinklers, water towers and seeder bots placed where you want them",
           "Push mower, lawn tractor and robot mowers",
           "Day and night cycle and a zoom from first person to orbit view",
@@ -123,7 +128,7 @@ window.NM_GAMES = [
             text: "Wyjdź z bazy, posiej czerwony pył i podlewaj, aż wzejdzie trawa. Każdy metr kwadratowy trawnika przynosi pieniądze, a na polu czeka 18 dołków do zazielenienia. Napełnij konewkę przy zbiorniku, przytrzymaj przycisk myszy i patrz, jak pył zmienia się w murawę." },
           { title: "Wydawaj w Pro Shopie", shot: 11,
             text: "Pro Shop ma wszystko, czego potrzebuje greenkeeper na Marsie.",
-            bullets: ["Narzędzia: większa konewka, szersze sitko, Księżycowe Buty, nawóz, nasiona kwiatów i kosiarka ręczna.",
+            bullets: ["Narzędzia: większa konewka, szersze sitko, Crater Striders, nawóz, Fairway Seed i kosiarka ręczna.",
                       "Woda: wąż ogrodowy, zraszacze i wieże ciśnień, które same utrzymują trawnik w zieleni.",
                       "Roboty i pojazdy: stacja solarna, roboty koszące, roboty siewne, garaż i traktorek."] },
           { title: "Zbuduj sieć nawadniania", shot: 6,
@@ -137,6 +142,8 @@ window.NM_GAMES = [
           "Przytulna gra 3D o trawniku na Marsie: od jednej konewki do całej floty maszyn",
           "Pole golfowe z 18 dołkami do zazielenienia",
           "Pro Shop z narzędziami, wodą, robotami, pojazdami i bonusami",
+          "Szef, który doradza, i ilustrowany poradnik greenkeepera",
+          "Niska grawitacja: sprężysty chód, skoki i pojazdy wybijające się na garbach",
           "Zraszacze, wieże ciśnień i roboty siewne stawiane tam, gdzie chcesz",
           "Kosiarka ręczna, traktorek i roboty koszące",
           "Cykl dnia i nocy oraz zoom od widoku z oczu do orbity",
@@ -144,6 +151,86 @@ window.NM_GAMES = [
         ]
       }
     },
+    // Devlog (tylko po angielsku). Najnowszy wpis pierwszy. Strona gry: play.html?g=grass-to-mars#devlog
+    devlog: [
+      {
+        version: "1.1",
+        date: "2026-11-20",
+        title: "Update 1.1: smoother, prettier, and a lot more Mars",
+        intro: "This is a big one. A few days after the demo went live on itch, we read every comment, every review and every Reddit thread and turned them into one long to-do list. Update 1.1 works through all of it. The Windows and browser versions both run much smoother, the game looks better, Mars finally feels like Mars, the economy is fairer, and there is someone on the base who explains how everything works. Here is everything that changed.",
+        sections: [
+          { title: "Performance, on Windows and in the browser",
+            items: [
+              "New quality settings: Low, Medium and High, in the main menu and the pause menu, on Windows and in the browser. Medium is the new default.",
+              "The astronaut went from about 250 separate parts to 11. In the browser that cut draw calls from around 1300 to around 360.",
+              "All heavy models (astronaut, buildings, vehicles) are about three times lighter, and every moving part still moves.",
+              "Rocks are drawn in larger batches. In the browser, Low skips the smallest ones and Medium draws them over a shorter distance.",
+              "Grass uses less geometry when you look down from above and switches to a simpler model sooner in the distance.",
+              "The garden hose updates several times faster.",
+              "Browser: grass is now built over several frames, so sowing no longer causes short freezes.",
+              "Browser: shaders warm up while the game loads, so nothing stutters the first time it appears on screen.",
+              "Browser: no more audio crackling.",
+              "Browser: the download is about 30 MB smaller."
+            ] },
+          { title: "A better looking Mars",
+            items: [
+              "A new sky. Sunsets on Mars really are blue, and now they are in the game, with a soft glow around the sun.",
+              "At night: stars, the Milky Way, both moons (Phobos and Deimos) and Earth as a small bright dot near the sun.",
+              "Dust storms are now a real wall of dust. The sky, the ground, the planet and every object fade into the same dust colour.",
+              "Browser: the sepia tint is gone. Colours, lighting and the astronaut now match the Windows version.",
+              "First person: the whole right forearm is in view with a new pose, and the hose plugs into the centre of the can.",
+              "Sprinkler Bots carry a real impact sprinkler on top.",
+              "The boss now stands on the concrete in front of the Pro Shop, hands on hips, keeping an eye on the base."
+            ] },
+          { title: "Mars feels like Mars",
+            items: [
+              "The open zone has real terrain: gentle hills, dunes and old worn craters. The golf greens stay flat.",
+              "Low gravity: a loping walk timed to your footsteps, momentum, a little sink and a puff of dust when you land. Press Space to jump.",
+              "Vehicles ride on all four wheels, lift off over crests, hold their angle in the air and land on their suspension.",
+              "New grip dial on the HUD. It shows your current grip, the range of your upgrade and where plain Mars sits. Change it with , and . (boots while walking, suspension while driving).",
+              "Moon Boots are now called Crater Striders.",
+              "The camera stops at buildings, parked vehicles and big rocks instead of going through them.",
+              "You can stand on the garage apron, and you can no longer sow inside the garage or on its apron."
+            ] },
+          { title: "Dust storms",
+            items: [
+              "During a storm the camera drone is grounded. The view stays close to the astronaut and orbit view is off until the dust settles.",
+              "The HUD says so clearly: the storm pill reads \"camera grounded\" and a notice pops up when you try to zoom out.",
+              "A storm lasts about a minute and nothing is lost. Keep planting."
+            ] },
+          { title: "Building and robots",
+            items: [
+              "New placement mode: the camera pulls back, the cursor picks the spot, WASD walks you around and dragging with the middle mouse button turns the kit.",
+              "No more building on golf greens. Anything from an older save that stands on a green is moved just outside it.",
+              "Robot mowers and the seeder steer around buildings and around each other, and they skip spots they cannot reach instead of getting stuck.",
+              "The hose no longer lags behind the can when you turn quickly in first person."
+            ] },
+          { title: "Economy",
+            items: [
+              "The one-time sprinkler kit is replaced by the Sprinkler Bot. If your save had old kits, you get their money back.",
+              "Seeder jobs: after each square, the seeder drives to the nearest mostly bare square in its zone once its service is paid at the station (E). Press R for auto-pay with a 15% fee.",
+              "Flower Seeds are now Fairway Seed. It grows in as short, ready-mown fairway grass that pays twice as much. Watering can only."
+            ] },
+          { title: "Help when you need it",
+            items: [
+              "The boss is now your adviser. Walk up to him and he tells you the most useful next step for where you are: the can, the sponsor, water towers, the mower, planting with the tractor, grip, robots or first person.",
+              "The Groundskeeper's Handbook: 11 illustrated pages on everything in the game. Press E next to the boss, or open it from the main menu or the pause menu.",
+              "One-time hints for things players kept missing, like first-person view and the Sponsor Deal (Perks tab, nothing else needed).",
+              "Clearer texts for dust storms, tractor planting and the sponsor.",
+              "At the end of the demo, and in the pause menu, you can now rate the game on itch or join the wishlist in one click."
+            ] },
+          { title: "Your save carries over",
+            items: [
+              "Your lawn, money and machines are right where you left them, on Windows and in the browser (same site and same browser)."
+            ] }
+        ],
+        outro: "Thank you for playing, commenting and reviewing. Most of this update exists because of you. If you enjoy it, a rating and a short comment on itch help a lot, and the wishlist is the best way to hear when the full game is out.",
+        links: [
+          { label: "Rate & comment on itch", url: "https://neonmoss-studio.itch.io/get-your-grass-to-mars" },
+          { label: "Join the wishlist", url: "#wishlist" }
+        ]
+      }
+    ],
     release: { repo: "neonmoss-studio/neonmoss", asset: "GetYourGrassToMars_Demo_Windows.zip" },
     download: null,
     itch: null
